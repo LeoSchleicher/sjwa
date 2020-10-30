@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%d{HH:mm:ss.SSS} [%40.40logger{40}] %-5level: %msg%n</Pattern>
+        </layout>
+    </appender>
+
+    <logger name="org.hibernate" level="WARN"/>
+    <logger name="com.zaccher" level="DEBUG"/>
+    <logger name="org.apache.shiro" level="INFO"/>
+    <logger name="net.sf.ehcache" level="ERROR"/>
+    <logger name="org.quartz" level="ERROR"/>
+    <logger name="httpclient.wire.header" level="DEBUG"/>
+    <logger name="org.apache.commons.httpclient" level="DEBUG"/>
+
+    <root level="DEBUG">
+        <appender-ref ref="STDOUT" />
+    </root>
+
+</configuration>

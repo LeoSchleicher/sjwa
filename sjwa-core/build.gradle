@@ -1,0 +1,127 @@
+plugins {
+	// id 'groovy'
+	// id 'java'
+	id 'java-library'
+	id 'maven'
+	id 'org.ajoberstar.grgit' version '4.0.2'
+}
+def coreVersion = "0.0"
+// def coreVersion = "1.0.${grgit?.log()?.size()?:"beta"}"
+
+jar{
+    baseName "sjwa-core-${coreVersion}"
+}
+
+task copyLibs(type: Copy) {
+	into "build/deps"
+	from configurations.runtime
+}
+
+// See http://gradle.org/docs/current/userguide/java_plugin.html
+//   Section 23.4.1. Changing the project layout
+sourceSets {
+	main {
+		// where does the Java source code live?
+		java {
+			srcDir 'src'
+		}
+		/*
+		groovy {
+			srcDir 'src'
+		}*/
+
+		// where do classpath resources like *.properties files live?
+		resources {
+			srcDir 'src'
+			// exclude '**/*.groovy'
+			// include 'src/'
+		}
+	}
+}
+repositories {
+	flatDir { dirs "lib" }
+	mavenCentral()
+	/*
+	maven {
+          // url "http://schleicher-farm.com:8081/artifactory/sf/"
+    }*/
+}
+
+
+
+
+// See http://gradle.org/docs/current/userguide/dependency_management.html
+//   Section 51.4.4. File dependencies
+dependencies {
+
+	api 'org.reflections:reflections:+'
+
+	// api 'com.schleicher-farm:sax_option:+'
+	// api 'com.schleicher-farm:simple-captcha-stripped:+'
+
+	// servlet
+	api 'javax.servlet:javax.servlet-api:3.+'
+
+	// Groovy
+	// https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all
+	// api 'org.codehaus.groovy:groovy-all:2.4.8'
+
+
+/*
+	api ('org.codehaus.groovy:groovy-all:2.4.20'){
+		exclude module: "groovy-test-junit5"
+		exclude module: "groovy-test"
+		exclude module: "groovy-testng"
+		exclude module: "groovy-groovydoc"
+		exclude module: "groovy-docgenerator"
+		exclude module: "groovy-groovysh"
+	}*/
+
+
+	// logging library
+	api 'ch.qos.logback:logback-classic:+'
+
+	// Hibernate, Connection Pooler and Hibernate Search and MySQL Connector
+	api 'javax.transaction:jta:1.1'
+	api group: 'org.hibernate', name: 'hibernate-search-orm', version: '5.11.5.Final'
+	api 'org.hibernate:hibernate-hikaricp:5.4.18.Final'
+
+	// Caching
+	api 'net.sf.ehcache:ehcache:+'
+
+	// sheduling
+	api ('org.quartz-scheduler:quartz:2.3.2'){
+		exclude group: "com.mchange"
+		exclude group: "com.zaxxer"
+	}
+
+	// Security Framework
+	// compile 'org.apache.shiro:shiro-core:1.2.4'
+	api 'org.apache.shiro:shiro-web:1.5.3'
+	api 'org.apache.shiro:shiro-ehcache:1.5.3'
+	//compile 'org.owasp.esapi:esapi:+'
+
+	// HTTPBuilder
+	// api 'org.codehaus.groovy.modules.http-builder:http-builder:+'
+
+	// Apache commons stuff: Mailer, Fileupload
+	api 'org.apache.commons:commons-email:+'
+	api 'commons-fileupload:commons-fileupload:+'
+	api 'commons-validator:commons-validator:+'
+
+	// Yaml, Less, SASS, Image filters, Saxon-HE
+	//api 'io.bit3:jsass:4.0.1'
+	//api 'org.jyaml:jyaml:+'
+	//api 'com.google.javascript:closure-compiler:+'
+	//api 'com.jhlabs:filters:2.0.235'
+	//api 'org.jsoup:jsoup:+'
+	//api 'org.imgscalr:imgscalr-lib:4.2'
+
+	//compile 'com.yahoo.platform.yui:yuicompressor:+'
+	api 'net.sf.saxon:Saxon-HE:9.6.0-7'
+
+	// compile 'commons-collections:commons-collections:+'
+	// compile 'org.springframework:spring-webmvc:+'
+
+	// api fileTree(dir: "${webAppDirName}/WEB-INF/lib", include: '*.jar')
+}

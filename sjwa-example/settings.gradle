@@ -1,0 +1,5 @@
+rootProject.name ='sjwa-example'
+
+
+include ":sjwa-core"
+project(":sjwa-core").projectDir = file("../sjwa-core")
