@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * Wrapper for HttpServletRequest
+ * this is a part of Application
  */
 public class Request {
 

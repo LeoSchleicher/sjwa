@@ -23,4 +23,8 @@ public class Response {
         }
     }
 
+    public void displayError(int code, String message){
+
+    }
+
 }

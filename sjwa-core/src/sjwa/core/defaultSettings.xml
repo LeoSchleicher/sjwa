@@ -1,0 +1,10 @@
+<settings>
+
+    <param value="test">
+        <subparam value="v1" key="k1"/>
+        <subparam value="v2" key="k2"/>
+    </param>
+
+
+
+</settings>

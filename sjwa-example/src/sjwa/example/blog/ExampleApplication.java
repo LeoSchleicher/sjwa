@@ -1,9 +1,9 @@
-package sjwa.example;
+package sjwa.example.blog;
 
 import sjwa.core.BasicApplication;
 import sjwa.core.annotations.Application;
 
-@Application(name = "My Example Application")
+@Application(name = "blog")
 public class ExampleApplication extends BasicApplication {
 
 

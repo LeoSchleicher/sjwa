@@ -29,6 +29,8 @@ public class Servlet extends GenericServlet {
         super.init();
         log.debug("in init");
 
+        // make init synchronized?
+
         // find all annotated classes
         Reflections ref = new Reflections("");
         for (Class<?> cl : ref.getTypesAnnotatedWith(Application.class)) {
@@ -40,6 +42,8 @@ public class Servlet extends GenericServlet {
                     BasicApplication basicApplication = (BasicApplication) appInst;
                     basicApplication.name = app.name(); // just transfer annotation to property
                     this.applications.add(basicApplication);
+                    // configure application
+
                 }
             } catch (Throwable e) {
                 e.printStackTrace();
@@ -60,16 +64,24 @@ public class Servlet extends GenericServlet {
         this.service((HttpServletRequest)req, (HttpServletResponse)res);
     }
 
-    public void service(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public void service(HttpServletRequest request, HttpServletResponse response) {
         log.debug("in service. count registered applications: "+applications.size());
         // select here current application
-        BasicApplication currentApplication = ListHelper.find(this.applications, e -> {
-            return true;
-        });
-        currentApplication.request = new Request(request);
-        currentApplication.response = new Response(response);
+        Request req = new Request(request);
+        Response res = new Response(response);
+        BasicApplication currentApplication = this.findApplication(req); // this finds application, that can serve this request
+        if(currentApplication != null){
 
-        currentApplication.response.write("Serving app: "+currentApplication.name+" ook!");
+            res.write("Serving app: "+currentApplication.name+" ook!");
+        } else {
+            // the app not found. out 404 TODO: format this with server default settings
+            res.displayError(404, "project not found");
+        }
+    }
+
+    private BasicApplication findApplication(Request request){
+
+        return this.applications.get(0);
     }
 
 
