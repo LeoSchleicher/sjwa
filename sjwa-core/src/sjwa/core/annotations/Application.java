@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 public @interface Application {
 
-    String name() default "";
+    String configurationName() default "";
 
 
 }

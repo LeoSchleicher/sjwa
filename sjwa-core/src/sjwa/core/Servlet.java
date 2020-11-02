@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import sjwa.core.annotations.Application;
-import sjwa.core.helper.ListHelper;
 
 public class Servlet extends GenericServlet {
 
@@ -35,12 +34,13 @@ public class Servlet extends GenericServlet {
         Reflections ref = new Reflections("");
         for (Class<?> cl : ref.getTypesAnnotatedWith(Application.class)) {
             Application app = cl.getAnnotation(Application.class);
-            log.info("found class: "+app.getClass().getName()+" annotated as: "+app.name());
+            log.info("found class: "+app.getClass().getName()+" annotated as: "+app.configurationName());
             try {
                 Object appInst = cl.newInstance();
                 if(appInst instanceof BasicApplication){
                     BasicApplication basicApplication = (BasicApplication) appInst;
-                    basicApplication.name = app.name(); // just transfer annotation to property
+                    basicApplication.name = app.configurationName(); // just transfer annotation to property
+                    basicApplication.configure();
                     this.applications.add(basicApplication);
                     // configure application
 
