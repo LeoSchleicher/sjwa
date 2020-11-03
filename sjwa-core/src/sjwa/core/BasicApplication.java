@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import sjwa.core.annotations.Application;
+import sjwa.core.helper.ResourcesHelper;
 
 public class BasicApplication {
 
@@ -20,6 +21,8 @@ public class BasicApplication {
         List<Application> hie = this.appHierarchy(this.getClass());
         for (Application app : hie){
             log.debug(app.configurationName());
+            String res = ResourcesHelper.getResourceFileAsString(app.configurationName()+".xml");
+            log.debug("got resource: "+res);
         }
     }
 

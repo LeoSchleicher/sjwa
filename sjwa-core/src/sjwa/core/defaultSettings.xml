@@ -1,6 +1,6 @@
 <settings>
 
-    <urlmatch>localhost\/sjwa</urlmatch>
+    <urlmatch>localhost:8080/sjwa/iiii\.html</urlmatch>
 
     <param value="test">
         <subparam value="v1" key="k1"/>
